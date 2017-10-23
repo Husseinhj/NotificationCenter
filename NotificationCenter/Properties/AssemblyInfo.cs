@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NotificationCenter")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This library works like Objective-C and Swift NSNotificationCenter")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Hussein.Juybari")]
 [assembly: AssemblyProduct("NotificationCenter")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
