@@ -1,0 +1,1 @@
+nuget pack .../NotificationCenter.csproj
