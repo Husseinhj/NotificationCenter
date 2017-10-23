@@ -116,28 +116,34 @@ namespace NotificationCenter
                         KeepActionData.Add(new Tuple<string, object>(key, data));
                     }
                 }
+
+                var actions = KeepActionData.Where(k => k.Item1 == key).ToArray();
+
                 foreach (var subscribe in subscription)
                 {
                     if (KeepActionValue)
                     {
-                        var actions = KeepActionData.Where(k => k.Item1 == key).ToArray();
                         if (actions.Length > 0)
                         {
                             var datas = actions.Select(o => o.Item2).ToList();
                             if (datas.Count > 0)
                             {
-                                Debug.WriteLine($"Your ('{key}') action have value before you subscribed on ('{key}') key");
+                                Debug.WriteLine(
+                                    $"Your ('{key}') action have value before you subscribed on ('{key}') key");
                                 subscribe.Item2.Invoke(datas);
-                                foreach (var action in actions)
-                                {
-                                    KeepActionData.Remove(action);
-                                }
                             }
                         }
                     }
 
                     Debug.WriteLine($"Your ('{key}') action was run completely ...");
                     subscribe.Item2.Invoke(data);
+                }
+                if (KeepActionValue)
+                {
+                    foreach (var action in actions)
+                    {
+                        KeepActionData.Remove(action);
+                    }
                 }
             });
         }
