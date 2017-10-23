@@ -4,8 +4,8 @@ This library works like Objective-C and Swift NSNotificationCenter.
 ## Installation 
 Use this command in Nuget Package Manager Console:
 
-``` ruby
-PM> Install-Package NotificationCenter -Version 1.0.0
+```
+PM> Install-Package NotificationCenter
 ```
 
 ## Methods
