@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
@@ -11,9 +12,20 @@ namespace NotificationCenter
     /// </summary>
     public static class NotificationCenter
     {
+        #region Properties
+
+        /// <summary>
+        /// Keep action data if key was not subscribed yet. It just work in Notify with data.
+        /// </summary>
+        public static bool KeepActionValue { get; set; }
+
         private static Collection<Tuple<string, Action>> Subscribers { get; set; }
+
         private static Collection<Tuple<string, Action<object>>> SubscribersWithData { get; set; }
 
+        private static List<Tuple<string, object>> KeepActionData { get; set; }
+
+        #endregion
         /// <summary>
         /// Constructor for init subscriber collection.
         /// </summary>
@@ -21,6 +33,7 @@ namespace NotificationCenter
         {
             Subscribers = new Collection<Tuple<string, Action>>();
             SubscribersWithData = new Collection<Tuple<string, Action<object>>>();
+            KeepActionData = new List<Tuple<string, object>>();
         }
 
         /// <summary>
@@ -95,10 +108,36 @@ namespace NotificationCenter
         {
             return Task.Run(delegate
             {
-                foreach (var subscription in SubscribersWithData.Where(s => s.Item1 == key))
+                var subscription = SubscribersWithData.Where(s => s.Item1 == key).ToList();
+                if (KeepActionValue)
                 {
+                    if (subscription.Count == 0)
+                    {
+                        KeepActionData.Add(new Tuple<string, object>(key, data));
+                    }
+                }
+                foreach (var subscribe in subscription)
+                {
+                    if (KeepActionValue)
+                    {
+                        var actions = KeepActionData.Where(k => k.Item1 == key).ToArray();
+                        if (actions.Length > 0)
+                        {
+                            var datas = actions.Select(o => o.Item2).ToList();
+                            if (datas.Count > 0)
+                            {
+                                Debug.WriteLine($"Your ('{key}') action have value before you subscribed on ('{key}') key");
+                                subscribe.Item2.Invoke(datas);
+                                foreach (var action in actions)
+                                {
+                                    KeepActionData.Remove(action);
+                                }
+                            }
+                        }
+                    }
+
                     Debug.WriteLine($"Your ('{key}') action was run completely ...");
-                    subscription.Item2.Invoke(data);
+                    subscribe.Item2.Invoke(data);
                 }
             });
         }
