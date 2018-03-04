@@ -62,8 +62,8 @@ namespace NotificationCenter
         /// <param name="key">String key for unsubscribe action name.</param>
         public static void Unsubscribe(string key)
         {
-            var listOfSubs = Subscribers.Where(k => k.Item1 == key).ToList();
-            if (listOfSubs.Count > 0)
+            var listOfSubs = Subscribers?.Where(k => k.Item1 == key).ToList();
+            if (listOfSubs?.Count > 0)
             {
                 foreach (var sub in listOfSubs)
                 {
@@ -71,8 +71,8 @@ namespace NotificationCenter
                 }
             }
 
-            var listOfSubsWithOutActionObject = SubscribersWithData.Where(k => k.Item1 == key).ToList();
-            if (listOfSubsWithOutActionObject.Count > 0)
+            var listOfSubsWithOutActionObject = SubscribersWithData?.Where(k => k.Item1 == key).ToList();
+            if (listOfSubsWithOutActionObject?.Count > 0)
             {
                 foreach (var sub in listOfSubsWithOutActionObject)
                 {
@@ -86,8 +86,8 @@ namespace NotificationCenter
         /// </summary>
         public static void UnsubscribeAll()
         {
-            Subscribers.Clear();
-            SubscribersWithData.Clear();
+            Subscribers?.Clear();
+            SubscribersWithData?.Clear();
         }
 
         /// <summary>
