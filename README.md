@@ -37,6 +37,12 @@ To remove your action in NotificationCenter, You should use this code :
 NotificationCenter.Unsubscribe("KEY");
 ```
 
+or Remove all subscribers use :
+
+``` csharp
+NotificationCenter.UnsubscribeAll();
+```
+
 ### Notify
 To invoke or notify all actions in unique Key, You should use this code :
 
