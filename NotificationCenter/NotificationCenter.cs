@@ -43,7 +43,12 @@ namespace NotificationCenter
         /// <param name="action">Action to call</param>
         public static void Subscribe(string key, Action action)
         {
-            Subscribers.Add(new Tuple<string, Action>(key, action));
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key), "KEY argument should have value");
+            }
+
+            Subscribers?.Add(new Tuple<string, Action>(key, action));
         }
 
         /// <summary>
@@ -53,7 +58,12 @@ namespace NotificationCenter
         /// <param name="action">Action to call with object</param>
         public static void Subscribe(string key, Action<object> action)
         {
-            SubscribersWithData.Add(new Tuple<string, Action<object>>(key, action));
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key), "KEY argument should have value");
+            }
+
+            SubscribersWithData?.Add(new Tuple<string, Action<object>>(key, action));
         }
 
         /// <summary>
@@ -62,6 +72,11 @@ namespace NotificationCenter
         /// <param name="key">String key for unsubscribe action name.</param>
         public static void Unsubscribe(string key)
         {
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key),"KEY argument should have value");
+            }
+
             var listOfSubs = Subscribers?.Where(k => k.Item1 == key).ToList();
             if (listOfSubs?.Count > 0)
             {
@@ -82,7 +97,7 @@ namespace NotificationCenter
         }
 
         /// <summary>
-        /// Unsubscribe all notifications
+        /// Unsubscribe to all notification keys.
         /// </summary>
         public static void UnsubscribeAll()
         {
@@ -97,6 +112,11 @@ namespace NotificationCenter
         /// <returns>Task of notify</returns>
         public static Task Notify(string key)
         {
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key), "KEY argument should have value");
+            }
+
             return Task.Run(delegate
             {
                 foreach (var subscription in Subscribers.Where(s => s.Item1 == key))
@@ -115,6 +135,11 @@ namespace NotificationCenter
         /// <returns>Task of notify</returns>
         public static Task Notify(string key, object data)
         {
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key), "KEY argument should have value");
+            }
+
             return Task.Run(delegate
             {
                 var subscription = SubscribersWithData.Where(s => s.Item1 == key).ToList();
