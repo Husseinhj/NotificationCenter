@@ -2,9 +2,9 @@
 A notification dispatch mechanism that enables the broadcast of information to registered observers. This library works like **Objective-C** and **Swift** `NSNotificationCenter` also like `BroadcastReceiver` in **Android** platform.
 A notification dispatch mechanism that enables the broadcast of information to registered observers.
 
-## Article
-Read [our tutorial or article](https://medium.com/@hussein.juybari/nsnotificationcenter-broadcastreceiver-in-c-net-4ad677c7be73) in Medium website.
-
+## Articles
+- Read [our tutorial or article](https://medium.com/@hussein.juybari/nsnotificationcenter-broadcastreceiver-in-c-net-4ad677c7be73) in Medium website.
+- Read [article](http://www.c-sharpcorner.com/article/nsnotificationcenter-broadcastreceiver-in-c-sharp-net/) in C# corner website.
 ## Installation 
 Use this command in Nuget Package Manager Console:
 
