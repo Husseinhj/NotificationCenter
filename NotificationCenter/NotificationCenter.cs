@@ -82,6 +82,15 @@ namespace NotificationCenter
         }
 
         /// <summary>
+        /// Unsubscribe all notifications
+        /// </summary>
+        public static void UnsubscribeAll()
+        {
+            Subscribers.Clear();
+            SubscribersWithData.Clear();
+        }
+
+        /// <summary>
         /// Notify action for your key.
         /// </summary>
         /// <param name="key">String key for notify action</param>
