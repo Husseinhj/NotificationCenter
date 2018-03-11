@@ -25,6 +25,11 @@ namespace NotificationCenter
 
         private static List<Tuple<string, object>> KeepActionData { get; set; }
 
+        /// <summary>
+        /// Show logs if it was true
+        /// </summary>
+        private static bool EnableLogs = false;
+
         #endregion
         /// <summary>
         /// Constructor for init subscriber collection.
@@ -124,6 +129,10 @@ namespace NotificationCenter
                     Debug.WriteLine($"Your ('{key}') action was run completely ...");
                     subscription.Item2.Invoke();
                 }
+                    if (EnableLogs)
+                    {
+                        Debug.WriteLine($"Your ('{key}') action was run completely ...");
+                    }
             });
         }
 
@@ -178,6 +187,15 @@ namespace NotificationCenter
                     {
                         KeepActionData.Remove(action);
                     }
+                                 if (EnableLogs)
+                                 {
+                                     Debug.WriteLine(
+                                     $"Your ('{key}') action have value before you subscribed on ('{key}') key");
+                                 }
+                         if (EnableLogs)
+                         {
+                             Debug.WriteLine($"Your ('{key}') action was run completely ...");
+                         }
                 }
             });
         }
