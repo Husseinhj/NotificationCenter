@@ -118,15 +118,16 @@ namespace NotificationCenter
 
             return Task.Run(delegate
             {
-                foreach (var subscription in Subscribers.Where(s => s.Item1 == key))
+                var subscriptions = Subscribers.Where(s => s.Item1 == key);
+
+                subscriptions.AsParallel().ForAll((actions) =>
                 {
-                    Debug.WriteLine($"Your ('{key}') action was run completely ...");
-                    subscription.Item2.Invoke();
-                }
                     if (EnableLogs)
                     {
                         Debug.WriteLine($"Your ('{key}') action was run completely ...");
                     }
+                    actions.Item2.Invoke();
+                });
             });
         }
 
@@ -155,42 +156,31 @@ namespace NotificationCenter
                 }
 
                 var actions = KeepActionData.Where(k => k.Item1 == key).ToArray();
-
-                foreach (var subscribe in subscription)
-                {
-                    if (KeepActionValue)
-                    {
-                        if (actions.Length > 0)
-                        {
-                            var datas = actions.Select(o => o.Item2).ToList();
-                            if (datas.Count > 0)
-                            {
-                                Debug.WriteLine(
-                                    $"Your ('{key}') action have value before you subscribed on ('{key}') key");
-                                subscribe.Item2.Invoke(datas);
-                            }
-                        }
-                    }
-
-                    Debug.WriteLine($"Your ('{key}') action was run completely ...");
-                    subscribe.Item2.Invoke(data);
-                }
                 if (KeepActionValue)
                 {
-                    foreach (var action in actions)
-                    {
-                        KeepActionData.Remove(action);
-                    }
+                    subscription.AsParallel().ForAll((Tuple<string, Action<object>> action) =>
+                     {
+                         if (actions.Length > 0)
+                         {
+                             var datas = actions.Select(o => o.Item2).ToList();
+                             if (datas.Count > 0)
+                             {
                                  if (EnableLogs)
                                  {
                                      Debug.WriteLine(
                                      $"Your ('{key}') action have value before you subscribed on ('{key}') key");
                                  }
+                                 action.Item2.Invoke(datas);
+                             }
+                         }
                          if (EnableLogs)
                          {
                              Debug.WriteLine($"Your ('{key}') action was run completely ...");
                          }
+                         action.Item2.Invoke(data);
+                     });
                 }
+                KeepActionData.Remove(actions.FirstOrDefault());
             });
         }
 
