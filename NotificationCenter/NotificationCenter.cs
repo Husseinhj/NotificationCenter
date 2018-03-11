@@ -82,22 +82,16 @@ namespace NotificationCenter
                 throw new ArgumentNullException(nameof(key),"KEY argument should have value");
             }
 
-            var listOfSubs = Subscribers?.Where(k => k.Item1 == key).ToList();
-            if (listOfSubs?.Count > 0)
+            var listOfSubs = Subscribers?.Where(k => k.Item1 == key).FirstOrDefault();
+            if (listOfSubs != null)
             {
-                foreach (var sub in listOfSubs)
-                {
-                    Subscribers.Remove(sub);
-                }
+                Subscribers?.Remove(listOfSubs);
             }
 
-            var listOfSubsWithOutActionObject = SubscribersWithData?.Where(k => k.Item1 == key).ToList();
-            if (listOfSubsWithOutActionObject?.Count > 0)
+            var listOfSubsWithOutActionObject = SubscribersWithData?.Where(k => k.Item1 == key).SingleOrDefault();
+            if (listOfSubsWithOutActionObject != null)
             {
-                foreach (var sub in listOfSubsWithOutActionObject)
-                {
-                    SubscribersWithData.Remove(sub);
-                }
+                SubscribersWithData?.Remove(listOfSubsWithOutActionObject);
             }
         }
 
