@@ -1,11 +1,11 @@
 language: csharp
-solution: /NotificationCenter/NotificationCenter.csproj
+solution: NotificationCenter/NotificationCenter.csproj
 before_install:
   - mkdir -p .nuget
   - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   - mono .nuget/nuget.exe # Output NuGet's version number
 install:
   - sudo apt-get install -y gtk-sharp2
-  - mono .nuget/nuget.exe restore /NotificationCenter/NotificationCenter.csproj
+  - mono .nuget/nuget.exe restore NotificationCenter/NotificationCenter.csproj
 mono:
   - latest
