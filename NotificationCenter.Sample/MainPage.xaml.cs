@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace NotificationCenter.Sample
@@ -16,7 +12,7 @@ namespace NotificationCenter.Sample
 
         #region Event method
 
-        void Subscribe_Clicked(object sender, System.EventArgs e)
+        void Subscribe_Clicked(object sender, EventArgs e)
         {
             String actionName = txtSubscribeAction.Text;
             if (!String.IsNullOrEmpty(actionName))
@@ -35,7 +31,7 @@ namespace NotificationCenter.Sample
             }
         }
 
-        void Unsubscribe_Clicked(object sender, System.EventArgs e)
+        void Unsubscribe_Clicked(object sender, EventArgs e)
         {
             String actionName = txtUnsubscribeAction.Text;
             if (!String.IsNullOrEmpty(actionName))
@@ -49,7 +45,7 @@ namespace NotificationCenter.Sample
             }
         }
 
-        async void Notify_Clicked(object sender, System.EventArgs e)
+        async void Notify_Clicked(object sender, EventArgs e)
         {
             String actionName = txtNotifyAction.Text;
             if (!String.IsNullOrEmpty(actionName))
