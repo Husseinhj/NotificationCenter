@@ -156,7 +156,7 @@ namespace NotificationCenter
                 }
 
                 var actions = KeepActionData.Where(k => k.Item1 == key).ToArray();
-                if (KeepActionValue)
+                if (subscription.Count > 0)
                 {
                     subscription.AsParallel().ForAll((Tuple<string, Action<object>> action) =>
                      {
