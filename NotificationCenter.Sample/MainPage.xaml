@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage Title="NotificationCenter test" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:NotificationCenter.Sample" x:Class="NotificationCenter.Sample.MainPage">
+    <Grid Padding="10,20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" x:Name="BtnSubscribe" Text="Subscribe" Clicked="Subscribe_Clicked" />
+        <Entry Grid.Column="1" Grid.Row="0" x:Name="txtSubscribeAction" Placeholder="Action name" />
+        <Button Grid.Column="0" Grid.Row="1" x:Name="BtnUnsubscribe" Text="Unsubscribe" Clicked="Unsubscribe_Clicked" />
+        <Entry Grid.Column="1" Grid.Row="1" x:Name="txtUnsubscribeAction" Placeholder="Action name" />
+        <Button Grid.Column="0" Grid.Row="2" x:Name="BtnNotify" Text="Notify" Clicked="Notify_Clicked" />
+        <Entry Grid.Column="1" Grid.Row="2" x:Name="txtNotifyAction" Placeholder="Action name" />
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Notified message:" />
+            <Editor x:Name="txtLog" BackgroundColor="#d3d3d3" TextColor="Navy" Grid.Row="1" />
+        </Grid>
+    </Grid>
+</ContentPage>
